@@ -1,4 +1,4 @@
-package com.auff.apiConnector.config;
+package com.auff.apiConnector.infra.config;
 
 import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED;
 import static org.springframework.http.MediaType.APPLICATION_JSON;

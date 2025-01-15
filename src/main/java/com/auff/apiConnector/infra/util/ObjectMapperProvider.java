@@ -1,4 +1,4 @@
-package com.auff.apiConnector.config;
+package com.auff.apiConnector.infra.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

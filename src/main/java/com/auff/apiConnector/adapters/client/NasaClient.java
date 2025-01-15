@@ -1,4 +1,4 @@
-package com.auff.apiConnector.client.nasa;
+package com.auff.apiConnector.adapters.client;
 
 import com.auff.apiConnector.util.QueryParamUtils;
 import lombok.RequiredArgsConstructor;

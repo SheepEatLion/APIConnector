@@ -1,6 +1,6 @@
 package com.auff.apiConnector.util;
 
-import com.auff.apiConnector.config.ObjectMapperProvider;
+import com.auff.apiConnector.infra.util.ObjectMapperProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Map;
 import org.springframework.util.LinkedMultiValueMap;
