@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import com.auff.apiConnector.adapters.controller.PhotoController;
+import com.auff.apiConnector.application.dto.PhotoRequest;
 import com.auff.apiConnector.application.dto.PhotoResponse;
+import com.auff.apiConnector.domain.model.Provider;
 import com.auff.apiConnector.ports.inbound.GetPhotoUseCase;
 import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,8 +28,10 @@ class PhotoControllerTest {
 
   private PhotoResponse photoResponse;
 
+  private PhotoRequest photoRequest;
+
   @BeforeEach
-  void responseSetUp() {
+  void mockDateSetUp() {
     photoResponse = PhotoResponse.builder()
         .title("my_earth_my_youth")
         .explanation("bravo. my life.")
@@ -35,11 +39,13 @@ class PhotoControllerTest {
         .link("https://testcode.photo.com/1234.jpg")
         .copyright("own by this test.")
         .build();
+
+    photoRequest = new PhotoRequest(Provider.NASA, LocalDate.now());
   }
 
   @Test
   void testGetPhoto() {
-    when(getPhotoUseCase.excute()).thenReturn(photoResponse);
+    when(getPhotoUseCase.excute(photoRequest)).thenReturn(photoResponse);
 
     mockMvc.get().uri(
         uriBuilder -> uriBuilder
