@@ -1,20 +1,15 @@
-package com.auff.apiConnector.domain.model;
+package com.auff.apiConnector.adapters.controller.dto;
 
-import java.time.LocalDate;
 import lombok.Builder;
 import lombok.Value;
 
 @Builder
 @Value
-public class Photo {
+public class PhotoResponse {
 
   String title;
 
-  Provider provider;
-
   String explanation;
-
-  LocalDate takenDate;
 
   String takenBy;
 
