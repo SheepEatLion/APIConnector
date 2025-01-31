@@ -1,8 +1,8 @@
 package com.auff.apiConnector;
 
 import com.auff.apiConnector.adapters.client.NasaClient;
-import com.auff.apiConnector.adapters.client.NasaQueryParams;
-import com.auff.apiConnector.adapters.client.NasaResponse;
+import com.auff.apiConnector.adapters.client.dto.NasaQueryParams;
+import com.auff.apiConnector.adapters.client.dto.NasaResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

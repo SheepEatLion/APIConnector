@@ -3,7 +3,7 @@ package com.auff.apiConnector;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.auff.apiConnector.adapters.client.NasaQueryParams;
+import com.auff.apiConnector.adapters.client.dto.NasaQueryParams;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 

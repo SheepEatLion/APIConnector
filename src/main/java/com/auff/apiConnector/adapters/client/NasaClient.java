@@ -1,5 +1,7 @@
 package com.auff.apiConnector.adapters.client;
 
+import com.auff.apiConnector.adapters.client.dto.NasaQueryParams;
+import com.auff.apiConnector.adapters.client.dto.NasaResponse;
 import com.auff.apiConnector.infra.util.QueryParamUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

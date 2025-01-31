@@ -1,4 +1,4 @@
-package com.auff.apiConnector.adapters.client;
+package com.auff.apiConnector.adapters.client.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
