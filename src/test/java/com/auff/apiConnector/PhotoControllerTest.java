@@ -5,10 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import com.auff.apiConnector.adapters.controller.PhotoController;
-import com.auff.apiConnector.application.dto.PhotoRequest;
-import com.auff.apiConnector.application.dto.PhotoResponse;
+import com.auff.apiConnector.adapters.controller.dto.PhotoResponse;
+import com.auff.apiConnector.application.dto.PhotoQuery;
+import com.auff.apiConnector.application.ports.inbound.GetPhotoUseCase;
+import com.auff.apiConnector.domain.model.Photo;
 import com.auff.apiConnector.domain.model.Provider;
-import com.auff.apiConnector.ports.inbound.GetPhotoUseCase;
 import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,30 +27,35 @@ class PhotoControllerTest {
   @MockitoBean
   private GetPhotoUseCase getPhotoUseCase;
 
-  private PhotoResponse photoResponse;
+  private Photo photo;
 
-  private PhotoRequest photoRequest;
+  private PhotoQuery photoQuery;
 
   @BeforeEach
   void mockDateSetUp() {
-    photoResponse = PhotoResponse.builder()
+    photo = Photo.builder()
         .title("my_earth_my_youth")
+        .provider(Provider.NASA)
         .explanation("bravo. my life.")
+        .takenDate(LocalDate.now())
         .takenBy("cole")
         .link("https://testcode.photo.com/1234.jpg")
         .copyright("own by this test.")
         .build();
 
-    photoRequest = new PhotoRequest(Provider.NASA, LocalDate.now());
+    photoQuery = PhotoQuery.builder()
+        .provider(Provider.NASA)
+        .takenDate(LocalDate.now())
+        .build();
   }
 
   @Test
   void testGetPhoto() {
-    when(getPhotoUseCase.excute(photoRequest)).thenReturn(photoResponse);
+    when(getPhotoUseCase.getPhoto(photoQuery)).thenReturn(photo);
 
     mockMvc.get().uri(
         uriBuilder -> uriBuilder
-            .path("/sheep-eat-lion/v1/photos")
+            .path("/api/v1/photos")
             .queryParam("provider", "NASA")
             .queryParam("takenDate", LocalDate.now().toString())
             .build())
@@ -57,8 +63,8 @@ class PhotoControllerTest {
         .expectStatus().isOk()
         .expectBody(PhotoResponse.class)
         .value(response -> {
-          assertEquals("my_earth_my_youth", response.title());
-          assertNotNull(response.link());
+          assertEquals("my_earth_my_youth", response.getTitle());
+          assertNotNull(response.getLink());
         });
   }
 }
