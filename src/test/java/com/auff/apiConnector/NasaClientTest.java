@@ -1,8 +1,8 @@
 package com.auff.apiConnector;
 
 import com.auff.apiConnector.adapters.client.NasaClient;
-import com.auff.apiConnector.adapters.client.dto.NasaQueryParams;
-import com.auff.apiConnector.adapters.client.dto.NasaResponse;
+import com.auff.apiConnector.application.dto.PhotoQuery;
+import com.auff.apiConnector.domain.model.Photo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,10 +17,10 @@ class NasaClientTest {
 
   @Test
   void shouldReturnCorrectUrl_WhenNasaApiRequest() {
-    Flux<NasaResponse> response = nasaClient.getPlanetaryImageBy(NasaQueryParams.builder().build());
+    Flux<Photo> response = nasaClient.loadPhoto(PhotoQuery.builder().build());
 
     StepVerifier.create(response)
-        .expectNextMatches(nasaResponse -> nasaResponse.imageUrl() != null)
+        .expectNextMatches(photo -> photo.getLink() != null)
         .verifyComplete();
   }
 }
