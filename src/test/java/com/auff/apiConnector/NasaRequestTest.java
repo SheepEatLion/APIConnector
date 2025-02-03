@@ -3,16 +3,16 @@ package com.auff.apiConnector;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.auff.apiConnector.adapters.client.dto.NasaQueryParams;
+import com.auff.apiConnector.adapters.client.dto.NasaRequest;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
-class NasaQueryParamsTest {
+class NasaRequestTest {
 
   @Test
   void 특정날짜_필드가_존재할때_다른필드도_존재한다면_예외를던진다() {
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-      NasaQueryParams.builder()
+      NasaRequest.builder()
           .specificDate(LocalDate.of(2025,1,10))
           .startDate(LocalDate.of(2025, 1, 1))
           .endDate(LocalDate.now())
@@ -26,7 +26,7 @@ class NasaQueryParamsTest {
   @Test
   void 이미지개수_필드가_존재할때_다른필드도_존재한다면_예외를던진다() {
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-      NasaQueryParams.builder()
+      NasaRequest.builder()
           .startDate(LocalDate.of(2025, 1, 1))
           .endDate(LocalDate.now())
           .numberOfRandomImages(5)
@@ -39,7 +39,7 @@ class NasaQueryParamsTest {
   @Test
   void 시작기간이_존재할때_종료기간이_없다면_예외를던진다() {
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-      NasaQueryParams.builder()
+      NasaRequest.builder()
           .startDate(LocalDate.of(2025, 1, 1))
           .build();
     });
@@ -50,7 +50,7 @@ class NasaQueryParamsTest {
   @Test
   void 종료기간이_존재할때_시작기간이_없다면_예외를던진다() {
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-      NasaQueryParams.builder()
+      NasaRequest.builder()
           .endDate(LocalDate.of(2025, 1, 3))
           .build();
     });
