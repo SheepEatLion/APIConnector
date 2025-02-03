@@ -2,7 +2,7 @@ package com.auff.apiConnector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.auff.apiConnector.adapters.client.dto.NasaQueryParams;
+import com.auff.apiConnector.adapters.client.dto.NasaRequest;
 import com.auff.apiConnector.infra.util.QueryParamUtils;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ class QueryParamUtilsTest {
 
   @Test
   void shouldReturnDefaultValue_WhenParamIsNull() {
-    NasaQueryParams queryParams = NasaQueryParams.builder().build();
+    NasaRequest queryParams = NasaRequest.builder().build();
 
     MultiValueMap<String, String> queryParamsMap = QueryParamUtils.toQueryParams(queryParams);
 
@@ -21,7 +21,7 @@ class QueryParamUtilsTest {
 
   @Test
   void shouldReturnString_WhenParamIsLocalDateType() {
-    NasaQueryParams queryParams = NasaQueryParams.builder().specificDate(LocalDate.now()).build();
+    NasaRequest queryParams = NasaRequest.builder().specificDate(LocalDate.now()).build();
 
     MultiValueMap<String, String> queryParamsMap = QueryParamUtils.toQueryParams(queryParams);
 
@@ -31,7 +31,7 @@ class QueryParamUtilsTest {
 
   @Test
   void shouldReturnString_WhenParamIsInteger() {
-    NasaQueryParams queryParams = NasaQueryParams.builder().numberOfRandomImages(2).build();
+    NasaRequest queryParams = NasaRequest.builder().numberOfRandomImages(2).build();
 
     MultiValueMap<String, String> queryParamsMap = QueryParamUtils.toQueryParams(queryParams);
 
