@@ -13,14 +13,14 @@ import lombok.Builder;
  */
 
 @Builder
-public record NasaQueryParams(
+public record NasaRequest(
     @JsonProperty(value = "date") LocalDate specificDate,
     @JsonProperty(value = "start_date") LocalDate startDate,
     @JsonProperty(value = "end_date") LocalDate endDate,
     @JsonProperty(value = "count") Integer numberOfRandomImages,
     @JsonProperty(value = "api_key") String apiKey) {
 
-  public NasaQueryParams {
+  public NasaRequest {
     if (specificDate != null && (startDate != null || endDate != null || numberOfRandomImages != null)) {
         throw new IllegalArgumentException("When SpecificDate is exist, others must be null");
     }
