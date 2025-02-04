@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import reactor.core.publisher.Flux;
 
 @WebFluxTest(PhotoController.class)
 class PhotoControllerTest {
@@ -27,13 +28,13 @@ class PhotoControllerTest {
   @MockitoBean
   private GetPhotoUseCase getPhotoUseCase;
 
-  private Photo photo;
+  private Flux<Photo> photo;
 
   private PhotoQuery photoQuery;
 
   @BeforeEach
   void mockDateSetUp() {
-    photo = Photo.builder()
+    photo = Flux.just(Photo.builder()
         .title("my_earth_my_youth")
         .provider(Provider.NASA)
         .explanation("bravo. my life.")
@@ -41,7 +42,7 @@ class PhotoControllerTest {
         .takenBy("cole")
         .link("https://testcode.photo.com/1234.jpg")
         .copyright("own by this test.")
-        .build();
+        .build());
 
     photoQuery = PhotoQuery.builder()
         .provider(Provider.NASA)
@@ -61,10 +62,10 @@ class PhotoControllerTest {
             .build())
         .exchange()
         .expectStatus().isOk()
-        .expectBody(PhotoResponse.class)
+        .expectBodyList(PhotoResponse.class)
         .value(response -> {
-          assertEquals("my_earth_my_youth", response.getTitle());
-          assertNotNull(response.getLink());
+          assertEquals("my_earth_my_youth", response.getFirst().getTitle());
+          assertNotNull(response.getFirst().getLink());
         });
   }
 }
