@@ -7,10 +7,10 @@ import com.auff.apiConnector.application.ports.inbound.GetPhotoUseCase;
 import com.auff.apiConnector.domain.model.Photo;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,21 +20,19 @@ public class PhotoController {
   private final GetPhotoUseCase getPhotoUseCase;
 
   @GetMapping
-  public ResponseEntity<PhotoResponse> getPhoto(@Valid PhotoRequest request) {
-    Photo result = getPhotoUseCase.getPhoto(PhotoQuery.builder()
+  public Flux<PhotoResponse> getPhoto(@Valid PhotoRequest request) {
+    Flux<Photo> result = getPhotoUseCase.getPhoto(PhotoQuery.builder()
         .takenDate(request.getTakenDate())
         .provider(request.getProvider())
         .build()
     );
 
-    return ResponseEntity.ok(
-        PhotoResponse.builder()
-            .title(result.getTitle())
-            .explanation(result.getExplanation())
-            .takenBy(result.getTakenBy())
-            .link(result.getLink())
-            .copyright(result.getCopyright())
-            .build()
-    );
+    return result.map(photo -> PhotoResponse.builder()
+        .title(photo.getTitle())
+        .explanation(photo.getExplanation())
+        .takenBy(photo.getTakenBy())
+        .link(photo.getLink())
+        .copyright(photo.getCopyright())
+        .build());
   }
 }
